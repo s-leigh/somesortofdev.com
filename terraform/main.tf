@@ -26,16 +26,16 @@ resource "aws_s3_bucket_object" "index" {
   bucket = "${var.aws_s3_bucket}"
   acl = "public-read"
   key = "index.html"
-  source = "../static/index.html"
+  source = "../src/index.html"
   content_type = "text/html"
-  etag = "${md5(file("../static/index.html"))}"
+  etag = "${md5(file("../src/index.html"))}"
 }
 
 resource "aws_s3_bucket_object" "error" {
   bucket = "${var.aws_s3_bucket}"
   acl = "public-read"
   key = "error.html"
-  source = "../static/error.html"
+  source = "../src/error.html"
   content_type = "text/html"
-  etag = "${md5(file("../static/error.html"))}"
+  etag = "${md5(file("../src/error.html"))}"
 }
