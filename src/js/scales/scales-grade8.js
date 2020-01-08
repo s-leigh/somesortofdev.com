@@ -19,7 +19,9 @@ chromaticScales.forEach(s => allScales.push(s));
 const wholeToneScale = {key: 'Whole tone', intervals: ['beginning on E'], style: ['legato, hands together']};
 allScales.push(wholeToneScale);
 
-const arpeggi = keys.map(key => ({key, intervals: ['Arpeggio, any inversion'], style: ['legato']}));
+const arpeggiModes = ['major', 'minor'];
+const arpeggiKeys = standardScaleStartingNotes.map(note => arpeggiModes.map(mode => `${note} ${mode}`)).flat();
+const arpeggi = arpeggiKeys.map(key => ({key, intervals: ['arpeggio, any inversion'], style: ['legato']}));
 arpeggi.map(a => allScales.push(a));
 
 const dominantSevenths = standardScaleStartingNotes.map(n => `${n} major (KEY)`).map(key => ({key, intervals: ['Dominant seventh'], style: ['legato']}));
@@ -28,4 +30,13 @@ dominantSevenths.map(a => allScales.push(a));
 const diminishedSevenths = ['A', 'B♭', 'B'].map(n => ({key: `beginning on ${n}`, intervals: ['Diminished seventh'], style: ['legato']}));
 diminishedSevenths.map(a => allScales.push(a));
 
-const getRandomScale = () => document.getElementById("scalesOutput").innerHTML = JSON.stringify(allScales[Math.floor(Math.random() * allScales.length)]);
+const randomElement = array => array[Math.floor(Math.random() * array.length)];
+
+const randomScale = () => {
+    const scaleObj = randomElement(allScales);
+    const interval = randomElement(scaleObj.intervals);
+    const style = randomElement(scaleObj.style);
+    return `${scaleObj.key}, ${interval}${style === 'legato' ? '' : `, ${style}`}`
+};
+
+const showRandomScale = () => document.getElementById("scalesOutput").innerHTML = JSON.stringify(randomScale());
