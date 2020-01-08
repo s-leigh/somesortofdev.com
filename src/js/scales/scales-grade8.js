@@ -28,7 +28,4 @@ dominantSevenths.map(a => allScales.push(a));
 const diminishedSevenths = ['A', 'B♭', 'B'].map(n => ({key: `beginning on ${n}`, intervals: ['Diminished seventh'], style: ['legato']}));
 diminishedSevenths.map(a => allScales.push(a));
 
-console.log(allScales);
-
-console.log(allScales.length);
-
+const getRandomScale = () => document.getElementById("scalesOutput").innerHTML = JSON.stringify(allScales[Math.floor(Math.random() * allScales.length)]);

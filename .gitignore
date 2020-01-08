@@ -3,3 +3,6 @@
 *.secret.tf
 *.tfstate*
 .idea/
+lib/
+node_modules/
+package-lock.json
