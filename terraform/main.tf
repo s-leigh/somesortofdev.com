@@ -34,7 +34,7 @@ resource "aws_s3_bucket_object" "index" {
 resource "aws_s3_bucket_object" "scales-grade8" {
   bucket = "${var.aws_s3_bucket}"
   acl = "public-read"
-  key = "scales-grade8.js"
+  key = "js/lib/scales-grade8.js"
   source = "../src/js/lib/scales-grade8.js"
   content_type = "text/javascript"
   etag = "${md5(file("../src/js/lib/scales-grade8.js"))}"
