@@ -71,15 +71,15 @@ const diatonicScales = standardScaleStartingNotes.map(startingNote =>
 
 const legatoScalesInThirds = ['C', 'B♭'].map(startingNote => new DiatonicScaleThirds(startingNote))
 
+const chromaticScaleInMinorThirds = ['left hand', 'right hand'].map(hand =>
+    new FingerExercise('minor thirds', hand, 'chromatic', CHROMATIC_MINOR_THIRDS_OCTAVES, 'A♯/C♯', STYLES.LEGATO, CHROMATIC_MINOR_THIRDS_TEMPO, 'Chromatic scale in minor thirds')
+)
+
 const chromaticScaleMinorThirdApart = bothStyles.map(style =>
     ALL_NOTES.map(note =>
         new FingerExercise('third apart', 'hands together', 'chromatic', CHROMATIC_THIRD_APART_OCTAVES, note, style, CHROMATIC_THIRD_APART_TEMPO, 'Chromatic scale a minor third apart')
     )
 )
-
-const chromaticScaleInMinorThirds = ['left hand', 'right hand'].map(hand =>
-        new FingerExercise('minor thirds', hand, 'chromatic', CHROMATIC_MINOR_THIRDS_OCTAVES, 'A♯/C♯', STYLES.LEGATO, CHROMATIC_MINOR_THIRDS_TEMPO, 'Chromatic scale in minor thirds')
-    )
 
 const wholeToneScale = [new FingerExercise('Octave apart', 'Hands together', 'Whole tone', WHOLE_TONE_SCALE_OCTAVES, 'E', STYLES.LEGATO, WHOLE_TONE_SCALE_TEMPO, 'Whole-tone scale')]
 
@@ -97,38 +97,41 @@ const dominantSevenths = standardScaleStartingNotes.map(key => new DominantSeven
 
 const diminishedSevenths = ALL_NOTES.map(note => new Arpeggio('Root', 'Diminished seventh', note, 'Diminished seventh'))
 
-const allScales = [diatonicScales, legatoScalesInThirds, chromaticScaleMinorThirdApart, chromaticScaleInMinorThirds, wholeToneScale, arpeggi, dominantSevenths, diminishedSevenths]
+const allScales = [diatonicScales, legatoScalesInThirds, chromaticScaleMinorThirdApart, chromaticScaleInMinorThirds, wholeToneScale]
+const allArpeggi = [dominantSevenths, diminishedSevenths, arpeggi]
 
 const randomElement = array => array[Math.floor(Math.random() * array.length)];
 
-const randomScale = (scaleTree = allScales) => {
-    if (scaleTree.interval !== undefined) return scaleTree
-    return randomScale(randomElement(scaleTree))
+const randomFingerExercise = (exerciseTree = allScales) => {
+    if (exerciseTree.interval !== undefined) return exerciseTree
+    return randomFingerExercise(randomElement(exerciseTree))
 }
 
-const showRandomScale = () => {
-    const scale = randomScale()
-    console.log(JSON.stringify(scale, null, 4))
+const showRandomExercise = (exercise) => {
+    console.log(JSON.stringify(exercise, null, 4))
     const mainInfo = [
-        `Type: ${scale.type}`,
-        `${scale.startingNote || scale.key} ${scale.mode}`,
-        `Interval: ${scale.interval}`,
-        `Style: ${scale.style}`
+        `Type: ${exercise.type}`,
+        `${exercise.startingNote || exercise.key} ${exercise.mode}`,
+        `Interval: ${exercise.interval}`,
+        `Style: ${exercise.style}`
     ]
     let arpeggioInfo = []
-    if (scale.inversion !== undefined) arpeggioInfo.push(
-        `Inversion: ${scale.inversion}`,
+    if (exercise.inversion !== undefined) arpeggioInfo.push(
+        `Inversion: ${exercise.inversion}`,
     )
-    if (scale.key !== undefined) arpeggioInfo.push(
-        `Key: ${scale.key}`
+    if (exercise.key !== undefined) arpeggioInfo.push(
+        `Key: ${exercise.key}`
     )
     const extraInfo = [
-        `${scale.hands}`,
-        `Octaves: ${scale.octaves}`,
-        `Tempo: ${scale.tempo}`
+        `${exercise.hands}`,
+        `Octaves: ${exercise.octaves}`,
+        `Tempo: ${exercise.tempo}`
     ].map(x => `<span style="font-size: 85%;">${x}</span>`)
 
     const formattedElement = mainInfo.concat(arpeggioInfo).concat(extraInfo).join('<br/>')
 
     document.getElementById("scalesOutput").innerHTML = formattedElement;
 }
+
+const showRandomScale = () => showRandomExercise(randomFingerExercise(allScales))
+const showRandomArpeggio = () => showRandomExercise(randomFingerExercise(allArpeggi))
