@@ -2,17 +2,20 @@
   "name": "js",
   "version": "1.0.0",
   "description": "",
-  "main": "scales/scales-grade8.js",
+  "main": "scales/scales-grade8.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "babel": "npx babel scales --out-dir lib -w"
+    "babel": "npx babel scales --out-dir lib -w --extensions .ts"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@babel/cli": "^7.7.7",
     "@babel/core": "^7.7.7",
-    "@babel/preset-env": "^7.7.7"
+    "@babel/preset-env": "^7.7.7",
+    "@babel/preset-typescript": "^7.7.7",
+    "@babel/plugin-proposal-class-properties": "^7.7.7",
+    "@babel/plugin-proposal-object-rest-spread": "^7.7.7"
   },
   "dependencies": {
     "@babel/polyfill": "^7.7.0"
