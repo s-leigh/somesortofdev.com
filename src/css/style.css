@@ -1,0 +1,4 @@
+.btn-primary {
+    font-family: Tahoma, serif;
+    font-size: calc(50px + .5vw);
+}

@@ -31,15 +31,6 @@ resource "aws_s3_object" "index" {
   etag = md5(file("../src/index.html"))
 }
 
-resource "aws_s3_object" "scales-grade8" {
-  bucket = var.aws_s3_bucket
-  acl = "public-read"
-  key = "js/lib/scales-grade8.js"
-  source = "../src/js/lib/scales-grade8.js"
-  content_type = "text/javascript"
-  etag = md5(file("../src/js/lib/scales-grade8.js"))
-}
-
 resource "aws_s3_object" "error" {
   bucket = var.aws_s3_bucket
   acl = "public-read"
@@ -47,4 +38,31 @@ resource "aws_s3_object" "error" {
   source = "../src/error.html"
   content_type = "text/html"
   etag = md5(file("../src/error.html"))
+}
+
+resource "aws_s3_object" "finger-exercises" {
+  bucket = var.aws_s3_bucket
+  acl = "public-read"
+  key = "static/finger-exercises.html"
+  source = "../src/static/finger-exercises.html"
+  content_type = "text/html"
+  etag = md5(file("../src/static/finger-exercises.html"))
+}
+
+resource "aws_s3_object" "css" {
+  bucket = var.aws_s3_bucket
+  acl = "public-read"
+  key = "css/style.css"
+  source = "../src/css/style.css"
+  content_type = "text/css"
+  etag = md5(file("../src/css/style.css"))
+}
+
+resource "aws_s3_object" "scales-grade8" {
+  bucket = var.aws_s3_bucket
+  acl = "public-read"
+  key = "js/lib/scales-grade8.js"
+  source = "../src/js/lib/scales-grade8.js"
+  content_type = "text/javascript"
+  etag = md5(file("../src/js/lib/scales-grade8.js"))
 }
