@@ -3,7 +3,8 @@ module.exports = {
         ["@babel/preset-env", {
             "useBuiltIns": "entry",
             "corejs": "3.22",
-            "targets": "> 0.25%, not dead"
+            "targets": "> 0.25%, not dead",
+            "modules": "auto"
         }],
         "@babel/preset-typescript",
 
