@@ -1,5 +1,10 @@
 // This is all in one file because I couldn't work out how to link it up with the HTML in separate files.
 
+// TS Ignore to ignore a prompt that this should include an 'import'/'export' to look like a module
+// @ts-ignore
+const OUTPUT_HTML_ELEMENT_ID = "scalesOutput"
+const OUTPUT_DETAILS_SPAN_STYLE = "font-size: 65%;"
+
 const DIATONIC_OCTAVES = 4
 const DIATONIC_OCTAVES_SCALE_TEMPO = 88
 const DIATONIC_SIXTH_THIRDS_SCALE_TEMPO = 63
@@ -139,14 +144,8 @@ class ChromaticScaleMinorThirdApart extends Scale {
     mode = NON_DIATONIC_SCALE_MODE.CHROMATIC
     startingNotes: NOTE[]
     constructor(startingNotes: NOTE[], style: STYLE) {
-        super('Third apart', "hands together", startingNotes, style, NON_DIATONIC_SCALE_MODE.CHROMATIC, CHROMATIC_THIRD_APART_OCTAVES, CHROMATIC_THIRD_APART_TEMPO, 'Chromatic scale a third apart')
+        super('Third apart', "Hands together", startingNotes, style, NON_DIATONIC_SCALE_MODE.CHROMATIC, CHROMATIC_THIRD_APART_OCTAVES, CHROMATIC_THIRD_APART_TEMPO, 'Chromatic scale a third apart')
         this.startingNotes = startingNotes
-    }
-}
-
-class WholeToneScale extends Scale {
-    constructor() {
-        super('Octave apart', "hands together", NOTE.E,  STYLE.LEGATO, NON_DIATONIC_SCALE_MODE.WHOLE_TONE, WHOLE_TONE_SCALE_TEMPO, WHOLE_TONE_SCALE_OCTAVES,'Whole-tone scale')
     }
 }
 
@@ -179,7 +178,7 @@ const chromaticScaleMinorThirdApart = BOTH_STYLES.map(style => {
     )
 })
 
-const wholeToneScale = new WholeToneScale()
+const wholeToneScale = new Scale('Octave apart', "Hands together", NOTE.E,  STYLE.LEGATO, NON_DIATONIC_SCALE_MODE.WHOLE_TONE, WHOLE_TONE_SCALE_TEMPO, WHOLE_TONE_SCALE_OCTAVES,'Whole-tone scale')
 
 const allScales = [diatonicScales, legatoScalesInThirds, chromaticScaleMinorThirdApart, chromaticScaleInMinorThirds, wholeToneScale]
 
@@ -212,7 +211,7 @@ const showRandomExercise = (exercise: any) => {
         `Type: ${exercise.type}`,
         `${exercise.startingNote || exercise.key} ${exercise.mode}`,
         `Interval: ${exercise.interval}`,
-        `Style: ${exercise.style}`
+        `Style: ${exercise.style.toLowerCase()}`
     ]
     let arpeggioInfo = []
     if (exercise.inversion !== undefined) arpeggioInfo.push(
@@ -225,12 +224,12 @@ const showRandomExercise = (exercise: any) => {
         `${exercise.hands}`,
         `Octaves: ${exercise.octaves}`,
         `Tempo: ${exercise.tempo}`
-    ].map(x => `<span style="font-size: 85%;">${x}</span>`)
+    ].map(x => `<span style="${OUTPUT_DETAILS_SPAN_STYLE}">${x}</span>`)
 
     const formattedElement = mainInfo.concat(arpeggioInfo).concat(extraInfo).join('<br/>')
 
     // @ts-ignore
-    document.getElementById("scalesOutput").innerHTML = formattedElement;
+    document.getElementById(OUTPUT_HTML_ELEMENT_ID).innerHTML = formattedElement;
 }
 
 const showRandomScale = () => showRandomExercise(randomFingerExercise(allScales))
