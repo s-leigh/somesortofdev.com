@@ -1,7 +1,9 @@
 module.exports = {
     "presets": [
         ["@babel/preset-env", {
-            "useBuiltIns": "entry"
+            "useBuiltIns": "entry",
+            "corejs": "3.22",
+            "targets": "> 0.25%, not dead"
         }],
         "@babel/preset-typescript",
 
@@ -9,5 +11,6 @@ module.exports = {
     "plugins": [
         "@babel/proposal-class-properties",
         "@babel/proposal-object-rest-spread"
-    ]
+    ],
+    "sourceType": "unambiguous"
 }

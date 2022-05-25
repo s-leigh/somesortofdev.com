@@ -4,20 +4,26 @@
   "description": "",
   "main": "scales/scales-grade8.ts",
   "scripts": {
+    "type-check": "tsc --noEmit",
+    "type-check:watch": "yarn run type-check -- --watch",
+    "build": "yarn run build:types && yarn run build:js",
+    "build:types": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "babel": "npx babel scales --out-dir lib -w --extensions .ts"
+    "babel": "npx babel scales --out-dir lib -w --extensions .ts --source-maps inline"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@babel/cli": "^7.7.7",
     "@babel/core": "^7.7.7",
-    "@babel/preset-env": "^7.7.7",
-    "@babel/preset-typescript": "^7.7.7",
     "@babel/plugin-proposal-class-properties": "^7.7.7",
-    "@babel/plugin-proposal-object-rest-spread": "^7.7.7"
+    "@babel/plugin-proposal-object-rest-spread": "^7.7.7",
+    "@babel/preset-env": "^7.7.7",
+    "@babel/preset-typescript": "^7.7.7"
   },
   "dependencies": {
-    "@babel/polyfill": "^7.7.0"
-  }
+    "@babel/polyfill": "^7.7.0",
+    "typescript": "^4.7.2"
+  },
+  "type": "commonjs"
 }
