@@ -1,24 +1,22 @@
-// This is all in one file because I couldn't work out how to link it up with the HTML in separate files.
-
 // TS Ignore to ignore a prompt that this should include an 'import'/'export' to look like a module
 // @ts-ignore
+import {
+    ARPEGGIO_OCTAVES,
+    CHROMATIC_MINOR_THIRDS_OCTAVES,
+    CHROMATIC_THIRD_APART_OCTAVES,
+    DIATONIC_OCTAVES,
+    LEGATO_SCALES_OCTAVES, WHOLE_TONE_SCALE_OCTAVES
+} from "./consts";
+
 const OUTPUT_HTML_ELEMENT_ID = "scalesOutput"
 const OUTPUT_DETAILS_SPAN_STYLE = "font-size: 65%;"
 
-const DIATONIC_OCTAVES = 4
-const DIATONIC_OCTAVES_SCALE_TEMPO = 88
-const DIATONIC_SIXTH_THIRDS_SCALE_TEMPO = 63
-const LEGATO_SCALES_THIRDS_TEMPO = 52
-const LEGATO_SCALES_OCTAVES = 2
-const CHROMATIC_THIRD_APART_OCTAVES = 4
-const CHROMATIC_THIRD_APART_TEMPO = 76
-const CHROMATIC_MINOR_THIRDS_OCTAVES = 2
-const CHROMATIC_MINOR_THIRDS_TEMPO = 52
-const WHOLE_TONE_SCALE_OCTAVES = 2
-const WHOLE_TONE_SCALE_TEMPO = 88
-
-const ARPEGGIO_OCTAVES = 4
+// Tempi
 const ARPEGGIO_TEMPO = 66
+const CHROMATIC_MINOR_THIRDS_TEMPO = 54
+const OCTAVES_SCALE_TEMPO = 88
+const SIXTHS_APART_SCALE_TEMPO = 60
+const LEGATO_SCALES_THIRDS_TEMPO = 52
 
 enum NOTE {
     C = 'C',
@@ -27,7 +25,7 @@ enum NOTE {
     E_FLAT = 'E♭',
     E = 'E',
     F = 'F',
-    G_FLAT = 'F♯/G♭',
+    F_SHARP = 'F♯',
     G = 'G',
     A_FLAT = 'G♯/A♭',
     A = 'A',
@@ -35,7 +33,7 @@ enum NOTE {
     B = 'B'
 }
 const ALL_NOTES = (Object.keys(NOTE) as (keyof typeof NOTE)[]).map(x => x as NOTE)
-const STANDARD_STARTING_NOTES = [NOTE.C, NOTE.D, NOTE.B, NOTE.G_FLAT, NOTE.F, NOTE.E_FLAT, NOTE.A_FLAT, NOTE.D_FLAT]
+const STANDARD_STARTING_NOTES = [NOTE.C, NOTE.E_FLAT, NOTE.F_SHARP, NOTE.A]
 
 enum STYLE {
     LEGATO = "Legato",
@@ -144,20 +142,18 @@ class ChromaticScaleMinorThirdApart extends Scale {
     mode = NON_DIATONIC_SCALE_MODE.CHROMATIC
     startingNotes: NOTE[]
     constructor(startingNotes: NOTE[], style: STYLE) {
-        super('Third apart', "Hands together", startingNotes, style, NON_DIATONIC_SCALE_MODE.CHROMATIC, CHROMATIC_THIRD_APART_OCTAVES, CHROMATIC_THIRD_APART_TEMPO, 'Chromatic scale a third apart')
+        super('Third apart', "Hands together", startingNotes, style, NON_DIATONIC_SCALE_MODE.CHROMATIC, CHROMATIC_THIRD_APART_OCTAVES, SIXTHS_APART_SCALE_TEMPO, 'Chromatic scale a third apart')
         this.startingNotes = startingNotes
     }
 }
 
 const diatonicScaleIntervals = ['Octave apart', 'Third apart', 'Sixth apart']; // TODO enum
 
-const diatonicScales = STANDARD_STARTING_NOTES.map(startingNote =>
+const diatonicScalesOctaveApart = STANDARD_STARTING_NOTES.map(startingNote =>
     (Object.keys(DIATONIC_SCALE_MODE) as (keyof typeof DIATONIC_SCALE_MODE)[]).map(mode =>
         BOTH_STYLES.map(style =>
-            diatonicScaleIntervals.map(interval =>
-                new DiatonicScaleOctaves(
-                    interval, startingNote, style, DIATONIC_SCALE_MODE[mode], interval === 'octave apart' ? DIATONIC_OCTAVES_SCALE_TEMPO : DIATONIC_SIXTH_THIRDS_SCALE_TEMPO)
-            )
+            new DiatonicScaleOctaves(
+                    'Octave apart', startingNote, style, DIATONIC_SCALE_MODE[mode], OCTAVES_SCALE_TEMPO)
         )
     )
 )
@@ -178,9 +174,9 @@ const chromaticScaleMinorThirdApart = BOTH_STYLES.map(style => {
     )
 })
 
-const wholeToneScale = new Scale('Octave apart', "Hands together", NOTE.E,  STYLE.LEGATO, NON_DIATONIC_SCALE_MODE.WHOLE_TONE, WHOLE_TONE_SCALE_TEMPO, WHOLE_TONE_SCALE_OCTAVES,'Whole-tone scale')
+const wholeToneScale = new Scale('Octave apart', "Hands together", NOTE.E,  STYLE.LEGATO, NON_DIATONIC_SCALE_MODE.WHOLE_TONE, OCTAVES_SCALE_TEMPO, WHOLE_TONE_SCALE_OCTAVES,'Whole-tone scale')
 
-const allScales = [diatonicScales, legatoScalesInThirds, chromaticScaleMinorThirdApart, chromaticScaleInMinorThirds, wholeToneScale]
+const allScales = [diatonicScalesOctaveApart, legatoScalesInThirds, chromaticScaleMinorThirdApart, chromaticScaleInMinorThirds, wholeToneScale]
 
 const inversions = ['Root', 'First inversion', 'Second inversion'] // TODO enum
 const arpeggi = STANDARD_STARTING_NOTES.map(startingNote =>
@@ -234,3 +230,5 @@ const showRandomExercise = (exercise: any) => {
 
 const showRandomScale = () => showRandomExercise(randomFingerExercise(allScales))
 const showRandomArpeggio = () => showRandomExercise(randomFingerExercise(allArpeggi))
+// exported so they aren't automatically deleted by the transpiler
+module.exports = {showRandomScale, showRandomArpeggio}

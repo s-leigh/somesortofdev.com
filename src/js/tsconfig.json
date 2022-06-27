@@ -15,7 +15,8 @@
     // Ensure that .d.ts files are created by tsc, but not .js files
     "declaration": true,
     // Ensure that Babel can safely transpile files in the TypeScript project
-    "isolatedModules": true
+    "isolatedModules": true,
+    "outDir": "lib/"
   },
   "include": [
     "scales" // <-- change this to where your source files are

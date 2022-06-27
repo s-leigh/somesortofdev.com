@@ -1,0 +1,7 @@
+export const ARPEGGIO_OCTAVES = 4
+export const CHROMATIC_MINOR_THIRDS_OCTAVES = 2
+export const CHROMATIC_THIRD_APART_OCTAVES = 4
+export const DIATONIC_OCTAVES = 4
+export const LEGATO_SCALES_OCTAVES = 2
+export const WHOLE_TONE_SCALE_OCTAVES = 2
+
