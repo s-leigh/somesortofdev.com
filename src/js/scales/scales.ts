@@ -3,7 +3,6 @@ import {
     CHROMATIC_SCALE_MAJOR_SIXTH_APART_OCTAVES,
     CONTRARY_MOTION_OCTAVES,
     DIATONIC_MODE,
-    DIATONIC_MODES,
     DIATONIC_OCTAVES,
     LEGATO_SCALES_OCTAVES,
     LEGATO_SCALES_THIRDS_TEMPO,
@@ -14,7 +13,8 @@ import {
     STACCATO_SCALES_SIXTHS_OCTAVES,
     STACCATO_SCALES_SIXTHS_TEMPO,
     STANDARD_STARTING_NOTES,
-    STYLE, WHOLE_TONE_SCALE_OCTAVES
+    STYLE,
+    WHOLE_TONE_SCALE_OCTAVES
 } from "./consts";
 
 export class Scale {
@@ -40,7 +40,7 @@ export class Scale {
 }
 
 const scalesOctaveApart: Scale[] = STANDARD_STARTING_NOTES.map((startingNote: NOTE) =>
-    DIATONIC_MODES.map((mode: DIATONIC_MODE) =>
+    [DIATONIC_MODE.MAJOR, DIATONIC_MODE.MINOR_HARMONIC, DIATONIC_MODE.MINOR_MELODIC].map((mode: DIATONIC_MODE) =>
         BOTH_STYLES.map((style: STYLE) =>
             new Scale("Hands together", "Octaves", mode, DIATONIC_OCTAVES, startingNote, style, OCTAVES_SCALE_TEMPO, "Scale in octaves")
         )

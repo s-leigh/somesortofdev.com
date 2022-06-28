@@ -1,20 +1,5 @@
 // TS Ignore to ignore a prompt that this should include an 'import'/'export' to look like a module
 // @ts-ignore
-import {
-    ALL_NOTES,
-    CHROMATIC_MINOR_THIRDS_OCTAVES,
-    CHROMATIC_MINOR_THIRDS_TEMPO,
-    CHROMATIC_THIRD_APART_OCTAVES,
-    DIATONIC_OCTAVES,
-    LEGATO_SCALES_OCTAVES,
-    LEGATO_SCALES_THIRDS_TEMPO,
-    NOTE,
-    OCTAVES_SCALE_TEMPO,
-    SIXTHS_APART_SCALE_TEMPO,
-    STANDARD_STARTING_NOTES,
-    STYLE,
-    WHOLE_TONE_SCALE_OCTAVES
-} from "./consts";
 import {allScales, Scale} from "./scales";
 import {allArpeggi, Arpeggio, ARPEGGIO_MODE} from "./arpeggi";
 

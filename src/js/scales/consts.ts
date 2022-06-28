@@ -46,8 +46,6 @@ export enum DIATONIC_MODE {
     MINOR_MELODIC = "minor melodic"
 }
 
-export const DIATONIC_MODES = (Object.keys(DIATONIC_MODE) as (keyof typeof DIATONIC_MODE)[]).map(x => x as DIATONIC_MODE)
-
 export enum NON_DIATONIC_MODE {
     CHROMATIC = "chromatic",
     WHOLE_TONE = "whole tone"
