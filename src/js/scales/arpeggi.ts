@@ -4,7 +4,7 @@ import {
     STYLE
 } from "./consts";
 
-enum ARPEGGIO_MODE {
+export enum ARPEGGIO_MODE {
     MAJOR = "major",
     MINOR = "minor",
     DOMINANT_SEVENTH = "dominant seventh",
@@ -38,11 +38,11 @@ export class Arpeggio {
     }
 }
 
-const arpeggi = STANDARD_STARTING_NOTES.map((rootNote: NOTE) =>
+const arpeggi: Arpeggio[] = STANDARD_STARTING_NOTES.map((rootNote: NOTE) =>
     [ARPEGGIO_MODE.MAJOR, ARPEGGIO_MODE.MINOR].map((mode: ARPEGGIO_MODE) =>
         new Arpeggio("Second inversion", mode, "Arpeggio", rootNote)
     )
-)
+).flat()
 
 const dominantSevenths = STANDARD_STARTING_NOTES.map((rootNote: NOTE) =>
     new Arpeggio("Root", ARPEGGIO_MODE.DOMINANT_SEVENTH, "Dominant seventh", rootNote)
@@ -52,4 +52,4 @@ const diminishedSevenths = [NOTE.C, NOTE.E_FLAT].map((rootNote: NOTE) =>
     new Arpeggio("Root", ARPEGGIO_MODE.DIMINISHED_SEVENTH, "Diminished seventh", undefined, rootNote)
 )
 
-export const allArpeggi = [arpeggi, dominantSevenths, diminishedSevenths]
+export const allArpeggi: Arpeggio[] = [arpeggi, dominantSevenths, diminishedSevenths].flat()

@@ -7,26 +7,24 @@ import {
     CHROMATIC_THIRD_APART_OCTAVES,
     DIATONIC_OCTAVES,
     LEGATO_SCALES_OCTAVES,
-    LEGATO_SCALES_THIRDS_TEMPO, NOTE,
+    LEGATO_SCALES_THIRDS_TEMPO,
+    NOTE,
     OCTAVES_SCALE_TEMPO,
-    SIXTHS_APART_SCALE_TEMPO, STANDARD_STARTING_NOTES, STYLE,
+    SIXTHS_APART_SCALE_TEMPO,
+    STANDARD_STARTING_NOTES,
+    STYLE,
     WHOLE_TONE_SCALE_OCTAVES
 } from "./consts";
 import {allScales, Scale} from "./scales";
-import {allArpeggi, Arpeggio} from "./arpeggi";
+import {allArpeggi, Arpeggio, ARPEGGIO_MODE} from "./arpeggi";
 
 const OUTPUT_HTML_ELEMENT_ID = "scalesOutput"
 const OUTPUT_DETAILS_SPAN_STYLE = "font-size: 65%;"
 
 type FingerExercise = Scale | Arpeggio
 
-const randomElement = (array: any[]): any => array[Math.floor(Math.random() * array.length)];
-
-// Deliberately configured so you're more likely to get an exercise with a shallow tree (e.g. whole-tone) than one of the many normal scales
-const randomFingerExercise = (exerciseTree: any[]): any => {
-    if (!Array.isArray(exerciseTree)) return exerciseTree
-    return randomFingerExercise(randomElement(exerciseTree))
-}
+const randomFingerExercise = <FE extends FingerExercise>(exercises: FE[]): FE =>
+    exercises[Math.floor(Math.random() * exercises.length)]
 
 const showRandomScale = () => {
     const scale: Scale = randomFingerExercise(allScales)
@@ -54,21 +52,18 @@ const showRandomArpeggio = () => {
     console.log(JSON.stringify(arpeggio, null, 4))
     const mainInfo = [
         `Type: ${arpeggio.type}`,
-        `${arpeggio.rootNote || arpeggio.key} ${arpeggio.mode.toLowerCase()}`,
-        `Interval: ${arpeggio.interval}`,
-        `Style: ${arpeggio.style.toLowerCase()}`
-    ]
-    let arpeggioInfo = []
-    arpeggioInfo.push(
+        `${arpeggio.mode === ARPEGGIO_MODE.DOMINANT_SEVENTH ? "In the key of " + arpeggio.key : (arpeggio.key || arpeggio.rootNote) + " " + arpeggio.mode}`,
         `Inversion: ${arpeggio.inversion}`
-    )
+    ]
     const extraInfo = [
         `${arpeggio.hands}`,
+        `Interval: ${arpeggio.interval}`,
         `Octaves: ${arpeggio.octaves}`,
-        `Tempo: ${arpeggio.tempo}`
+        `Tempo: ${arpeggio.tempo}`,
+        `Style: ${arpeggio.style}`
     ].map(x => `<span style="${OUTPUT_DETAILS_SPAN_STYLE}">${x}</span>`)
 
-    const formattedElement = mainInfo.concat(arpeggioInfo).concat(extraInfo).join('<br/>')
+    const formattedElement = mainInfo.concat(extraInfo).join('<br/>')
 
     // @ts-ignore
     document.getElementById(OUTPUT_HTML_ELEMENT_ID).innerHTML = formattedElement;
