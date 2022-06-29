@@ -2,6 +2,7 @@
 // @ts-ignore
 import {allScales, Scale} from "./scales";
 import {allArpeggi, Arpeggio, ARPEGGIO_MODE} from "./arpeggi";
+import {NOTE} from "./consts";
 
 const OUTPUT_HTML_ELEMENT_ID = "scalesOutput"
 const OUTPUT_DETAILS_SPAN_STYLE = "font-size: 65%;"
@@ -11,14 +12,27 @@ type FingerExercise = Scale | Arpeggio
 const randomFingerExercise = <FE extends FingerExercise>(exercises: FE[]): FE =>
     exercises[Math.floor(Math.random() * exercises.length)]
 
+const formatScaleKey = (scale: Scale): String => {
+    if (Array.isArray(scale.startingNote) && scale.startingNote.length === 2) { // shouldn't ever be >2
+        return `${scale.startingNote[0]} and ${scale.startingNote[1]} ${scale.mode}`
+    }
+    return `${scale.startingNote} ${scale.mode}`
+}
+const formatArpeggioMode = (arpeggio: Arpeggio): String => {
+    if (arpeggio.mode === ARPEGGIO_MODE.DOMINANT_SEVENTH) {
+        return `In the key of ${arpeggio.key}`
+    }
+    return `${(arpeggio.key || arpeggio.rootNote)} ${arpeggio.mode}`
+}
+
 const showRandomScale = () => {
     const scale: Scale = randomFingerExercise(allScales)
     console.log(JSON.stringify(scale, null, 4))
-    const mainInfo = [
+    const mainInfo: String[] = [
         `Type: ${scale.type}`,
-        `${scale.startingNote} ${scale.mode}`,
-        `Interval: ${scale.interval}`,
-        `Style: ${scale.style.toLowerCase()}`
+        formatScaleKey(scale),
+        `Style: ${scale.style.toLowerCase()}`,
+        `Interval: ${scale.interval}`
     ]
     const extraInfo = [
         `${scale.hands}`,
@@ -37,7 +51,7 @@ const showRandomArpeggio = () => {
     console.log(JSON.stringify(arpeggio, null, 4))
     const mainInfo = [
         `Type: ${arpeggio.type}`,
-        `${arpeggio.mode === ARPEGGIO_MODE.DOMINANT_SEVENTH ? "In the key of " + arpeggio.key : (arpeggio.key || arpeggio.rootNote) + " " + arpeggio.mode}`,
+        formatArpeggioMode(arpeggio),
         `Inversion: ${arpeggio.inversion}`
     ]
     const extraInfo = [
