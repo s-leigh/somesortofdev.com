@@ -34,13 +34,15 @@ const showRandomScale = () => {
         `Style: ${scale.style.toLowerCase()}`,
         `Interval: ${scale.interval}`
     ]
-    const extraInfo = [
-        `${scale.hands}`,
-        `Octaves: ${scale.octaves}`,
-        `Tempo: ${scale.tempo} (minim)`
-    ].map(x => `<span style="${OUTPUT_DETAILS_SPAN_STYLE}">${x}</span>`)
+    const extraInfo = `<span style="${OUTPUT_DETAILS_SPAN_STYLE}">${
+        [
+            `${scale.hands}`,
+            `Octaves: ${scale.octaves}`,
+            `Tempo: ${scale.tempo} (minim)`
+        ].join('<br/>')
+    }</span>`
     const image = scale.imagePath ? `<img src=${scale.imagePath}/>` : ""
-    const formattedElement = mainInfo.concat(extraInfo, image).join('<br/>')
+    const formattedElement = `<div class="border"><div class="finger-exercise__inner">${mainInfo.concat(extraInfo, image).join('<br/>')}</div></div>`
 
     // @ts-ignore
     document.getElementById(OUTPUT_HTML_ELEMENT_ID).innerHTML = formattedElement;
@@ -54,15 +56,17 @@ const showRandomArpeggio = () => {
         formatArpeggioMode(arpeggio),
         `Inversion: ${arpeggio.inversion}`
     ]
-    const extraInfo = [
-        `${arpeggio.hands}`,
-        `Interval: ${arpeggio.interval}`,
-        `Octaves: ${arpeggio.octaves}`,
-        `Tempo: ${arpeggio.tempo}`,
-        `Style: ${arpeggio.style}`
-    ].map(x => `<span style="${OUTPUT_DETAILS_SPAN_STYLE}">${x}</span>`)
+    const extraInfo = `<span style="${OUTPUT_DETAILS_SPAN_STYLE}">${
+        [
+            `${arpeggio.hands}`,
+            `Interval: ${arpeggio.interval}`,
+            `Octaves: ${arpeggio.octaves}`,
+            `Tempo: ${arpeggio.tempo}`,
+            `Style: ${arpeggio.style}`
+        ].join('<br/>')
+    }</span>`
     const image = arpeggio.imagePath ? `<img src=${arpeggio.imagePath}/>` : ""
-    const formattedElement = mainInfo.concat(extraInfo, image).join('<br/>')
+    const formattedElement = `<div class="border"><div class="finger-exercise__inner">${mainInfo.concat(extraInfo, image).join('<br/>')}</div></div>`
 
     // @ts-ignore
     document.getElementById(OUTPUT_HTML_ELEMENT_ID).innerHTML = formattedElement;

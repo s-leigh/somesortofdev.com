@@ -1,6 +1,11 @@
 body {
     /* https://stackoverflow.com/questions/2545542/font-size-rendering-inconsistencies-on-an-iphone */
     -webkit-text-size-adjust: none;
+    padding-bottom: 70px;
+}
+
+.border {
+    border-radius: 10px
 }
 
 .btn-primary {
@@ -8,11 +13,26 @@ body {
     font-size: clamp(40px, calc(40px + .5vw), 60px);
 }
 
-.FingerExercise {
+.container-fluid {
+    margin-bottom: 150px
+}
+
+.finger-exercise__outer {
     font-size: clamp(40px, calc(40px + 1vw), 50px);
+    margin: 10px;
+    padding: 30px;
+}
+
+.finger-exercise__inner {
+    padding: 10px
+}
+
+.fixed-bottom {
+    margin: 10px;
+    padding: 20px;
 }
 
 .row {
-    margin-top: 10px;
-    margin-left: 5px;
+    /*margin-top: 10px;*/
+    /*margin-left: 5px;*/
 }
