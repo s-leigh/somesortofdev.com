@@ -39,8 +39,8 @@ const showRandomScale = () => {
         `Octaves: ${scale.octaves}`,
         `Tempo: ${scale.tempo} (minim)`
     ].map(x => `<span style="${OUTPUT_DETAILS_SPAN_STYLE}">${x}</span>`)
-
-    const formattedElement = mainInfo.concat(extraInfo).join('<br/>')
+    const image = scale.imagePath ? `<img src=${scale.imagePath}/>` : ""
+    const formattedElement = mainInfo.concat(extraInfo, image).join('<br/>')
 
     // @ts-ignore
     document.getElementById(OUTPUT_HTML_ELEMENT_ID).innerHTML = formattedElement;

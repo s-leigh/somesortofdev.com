@@ -7,6 +7,8 @@ import {
     STYLE
 } from "./consts";
 
+const IMAGE_DIR = "../../static/assets/"
+
 // Octaves
 export const CHROMATIC_SCALE_MAJOR_SIXTH_APART_OCTAVES = 4
 export const CONTRARY_MOTION_OCTAVES = 2
@@ -31,8 +33,9 @@ export class Scale {
     style: STYLE
     tempo: number
     type: string
+    imagePath?: string
 
-    constructor(hands: string, interval: string, mode: DIATONIC_MODE | NON_DIATONIC_MODE, octaves: number, startingNote: NOTE | NOTE[], style: STYLE, tempo: number, type: string) {
+    constructor(hands: string, interval: string, mode: DIATONIC_MODE | NON_DIATONIC_MODE, octaves: number, startingNote: NOTE | NOTE[], style: STYLE, tempo: number, type: string, imagePath?: string) {
         this.hands = hands
         this.interval = interval
         this.mode = mode
@@ -41,6 +44,7 @@ export class Scale {
         this.style = style
         this.tempo = tempo
         this.type = type
+        this.imagePath = imagePath
     }
 }
 
@@ -68,7 +72,7 @@ const scalesContraryMotion: Scale[] = STANDARD_STARTING_NOTES.map((startingNote:
     )
 ).flat(2)
 
-const legatoScaleInThirds = [new Scale("Hands separately", "Thirds", DIATONIC_MODE.MAJOR, LEGATO_SCALES_OCTAVES, NOTE.E_FLAT, STYLE.LEGATO, LEGATO_SCALES_THIRDS_MINIM_TEMPO, "Legato scale in thirds")]
+const legatoScaleInThirds = [new Scale("Hands separately", "Thirds", DIATONIC_MODE.MAJOR, LEGATO_SCALES_OCTAVES, NOTE.E_FLAT, STYLE.LEGATO, LEGATO_SCALES_THIRDS_MINIM_TEMPO, "Legato scale in thirds", `${IMAGE_DIR}/legato-scale-thirds-e-flat.png`)]
 
 const staccatoScaleInSixths = [new Scale("Hands separately", "Sixths", DIATONIC_MODE.MAJOR, STACCATO_SCALES_SIXTHS_OCTAVES, NOTE.C, STYLE.STACCATO, STACCATO_SCALES_SIXTHS_MINIM_TEMPO, "Staccato scale in sixths")]
 
