@@ -12,64 +12,48 @@ type FingerExercise = Scale | Arpeggio
 const randomFingerExercise = <FE extends FingerExercise>(exercises: FE[]): FE =>
     exercises[Math.floor(Math.random() * exercises.length)]
 
-const formatScaleKey = (scale: Scale): String => {
+const formatScaleKey = (scale: Scale): string => {
     if (Array.isArray(scale.startingNote) && scale.startingNote.length === 2) { // shouldn't ever be >2
         return `${scale.startingNote[0]} and ${scale.startingNote[1]} ${scale.mode}`
     }
     return `${scale.startingNote} ${scale.mode}`
 }
-const formatArpeggioMode = (arpeggio: Arpeggio): String => {
+const formatArpeggioMode = (arpeggio: Arpeggio): string => {
     if (arpeggio.mode === ARPEGGIO_MODE.DOMINANT_SEVENTH) {
         return `In the key of ${arpeggio.key}`
     }
     return `${(arpeggio.key || arpeggio.rootNote)} ${arpeggio.mode}`
 }
 
-const showRandomScale = () => {
-    const scale: Scale = randomFingerExercise(allScales)
-    console.log(JSON.stringify(scale, null, 4))
+const showRandomFingerExercise = <FE extends FingerExercise>(fingerExercises: FE[], formatKeyOrMode: (fe: FE) => string) => {
+    const fingerExercise = randomFingerExercise(fingerExercises)
+    console.log(JSON.stringify(fingerExercise, null, 4))
     const mainInfo: String[] = [
-        `Type: ${scale.type}`,
-        formatScaleKey(scale),
-        `Style: ${scale.style.toLowerCase()}`,
-        `Interval: ${scale.interval}`
+        `Type: ${fingerExercise.type}`,
+        formatKeyOrMode(fingerExercise),
+        `Style: ${fingerExercise.style.toLowerCase()}`,
+        `Interval: ${fingerExercise.interval}`
     ]
     const extraInfo = `<span style="${OUTPUT_DETAILS_SPAN_STYLE}">${
         [
-            `${scale.hands}`,
-            `Octaves: ${scale.octaves}`,
-            `Tempo: ${scale.tempo} (minim)`
+            `${fingerExercise.hands}`,
+            `Octaves: ${fingerExercise.octaves}`,
+            `Tempo: ${fingerExercise.tempo} (minim)`
         ].join('<br/>')
     }</span>`
-    const image = scale.imagePath ? `<img src=${scale.imagePath}/>` : ""
+    const image = fingerExercise.imagePath ? `<img src=${fingerExercise.imagePath}/>` : ""
     const formattedElement = `<div class="border"><div class="finger-exercise__inner">${mainInfo.concat(extraInfo, image).join('<br/>')}</div></div>`
 
     // @ts-ignore
     document.getElementById(OUTPUT_HTML_ELEMENT_ID).innerHTML = formattedElement;
 }
 
-const showRandomArpeggio = () => {
-    const arpeggio: Arpeggio = randomFingerExercise(allArpeggi)
-    console.log(JSON.stringify(arpeggio, null, 4))
-    const mainInfo = [
-        `Type: ${arpeggio.type}`,
-        formatArpeggioMode(arpeggio),
-        `Inversion: ${arpeggio.inversion}`
-    ]
-    const extraInfo = `<span style="${OUTPUT_DETAILS_SPAN_STYLE}">${
-        [
-            `${arpeggio.hands}`,
-            `Interval: ${arpeggio.interval}`,
-            `Octaves: ${arpeggio.octaves}`,
-            `Tempo: ${arpeggio.tempo}`,
-            `Style: ${arpeggio.style}`
-        ].join('<br/>')
-    }</span>`
-    const image = arpeggio.imagePath ? `<img src=${arpeggio.imagePath}/>` : ""
-    const formattedElement = `<div class="border"><div class="finger-exercise__inner">${mainInfo.concat(extraInfo, image).join('<br/>')}</div></div>`
+const showRandomScale = () => {
+    showRandomFingerExercise(allScales, formatScaleKey)
+}
 
-    // @ts-ignore
-    document.getElementById(OUTPUT_HTML_ELEMENT_ID).innerHTML = formattedElement;
+const showRandomArpeggio = () => {
+    showRandomFingerExercise(allArpeggi, formatArpeggioMode)
 }
 
 // exported so they aren't automatically deleted by the transpiler
