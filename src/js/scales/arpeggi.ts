@@ -53,8 +53,9 @@ const dominantSevenths = STANDARD_STARTING_NOTES.map((key: NOTE) => {
     return new Arpeggio("Root", ARPEGGIO_MODE.DOMINANT_SEVENTH, "Dominant seventh", key, undefined, imagePath)
 })
 
-const diminishedSevenths = [NOTE.C, NOTE.E_FLAT].map((rootNote: NOTE) =>
-    new Arpeggio("Root", ARPEGGIO_MODE.DIMINISHED_SEVENTH, "Diminished seventh", undefined, rootNote)
-)
+const diminishedSevenths = [NOTE.C, NOTE.E_FLAT].map((rootNote: NOTE) => {
+    const imagePath = `${IMAGE_DIR}/arpeggio-dim-7-starting-${rootNote === NOTE.C ? "c" : "e-flat"}.png`
+    return new Arpeggio("Root", ARPEGGIO_MODE.DIMINISHED_SEVENTH, "Diminished seventh", undefined, rootNote, imagePath)
+})
 
 export const allArpeggi: Arpeggio[] = [arpeggi, dominantSevenths, diminishedSevenths].flat()
