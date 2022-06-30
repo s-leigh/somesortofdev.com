@@ -1,3 +1,8 @@
+body {
+    /* https://stackoverflow.com/questions/2545542/font-size-rendering-inconsistencies-on-an-iphone */
+    -webkit-text-size-adjust: none;
+}
+
 .btn-primary {
     font-family: Tahoma, serif;
     font-size: clamp(40px, calc(40px + .5vw), 60px);
