@@ -1,4 +1,5 @@
 import {
+    IMAGE_DIR,
     NOTE,
     STANDARD_STARTING_NOTES,
     STYLE
@@ -15,6 +16,7 @@ const ARPEGGIO_OCTAVES = 4
 
 export class Arpeggio {
     hands: string
+    imagePath?: string
     interval: string
     inversion?: string
     key?: NOTE
@@ -24,8 +26,9 @@ export class Arpeggio {
     style: STYLE
     tempo: number
     type: string
-    constructor(inversion: string, mode: ARPEGGIO_MODE, type: string, key?: NOTE, rootNote?: NOTE) {
+    constructor(inversion: string, mode: ARPEGGIO_MODE, type: string, key?: NOTE, rootNote?: NOTE, imagePath?: string) {
         this.hands = "Hands together"
+        this.imagePath = imagePath
         this.interval = "Octaves"
         this.inversion = inversion
         this.key = key
@@ -44,9 +47,11 @@ const arpeggi: Arpeggio[] = STANDARD_STARTING_NOTES.map((rootNote: NOTE) =>
     )
 ).flat()
 
-const dominantSevenths = STANDARD_STARTING_NOTES.map((rootNote: NOTE) =>
-    new Arpeggio("Root", ARPEGGIO_MODE.DOMINANT_SEVENTH, "Dominant seventh", rootNote)
-)
+const dominantSevenths = STANDARD_STARTING_NOTES.map((key: NOTE) => {
+    let imagePath
+    if (key === NOTE.F_SHARP) imagePath = `${IMAGE_DIR}/arpeggio-dom-7-key-f-sharp.png`
+    return new Arpeggio("Root", ARPEGGIO_MODE.DOMINANT_SEVENTH, "Dominant seventh", key, undefined, imagePath)
+})
 
 const diminishedSevenths = [NOTE.C, NOTE.E_FLAT].map((rootNote: NOTE) =>
     new Arpeggio("Root", ARPEGGIO_MODE.DIMINISHED_SEVENTH, "Diminished seventh", undefined, rootNote)

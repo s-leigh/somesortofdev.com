@@ -61,8 +61,8 @@ const showRandomArpeggio = () => {
         `Tempo: ${arpeggio.tempo}`,
         `Style: ${arpeggio.style}`
     ].map(x => `<span style="${OUTPUT_DETAILS_SPAN_STYLE}">${x}</span>`)
-
-    const formattedElement = mainInfo.concat(extraInfo).join('<br/>')
+    const image = arpeggio.imagePath ? `<img src=${arpeggio.imagePath}/>` : ""
+    const formattedElement = mainInfo.concat(extraInfo, image).join('<br/>')
 
     // @ts-ignore
     document.getElementById(OUTPUT_HTML_ELEMENT_ID).innerHTML = formattedElement;

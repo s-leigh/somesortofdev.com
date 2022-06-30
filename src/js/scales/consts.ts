@@ -1,4 +1,6 @@
 
+export const IMAGE_DIR = "../../static/assets"
+
 export enum NOTE {
     C = 'C',
     D_FLAT = 'C♯/D♭',
