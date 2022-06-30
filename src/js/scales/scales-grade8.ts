@@ -4,7 +4,7 @@ import {allScales, Scale} from "./scales";
 import {allArpeggi, Arpeggio, ARPEGGIO_MODE} from "./arpeggi";
 import {NOTE} from "./consts";
 
-const OUTPUT_HTML_ELEMENT_ID = "scalesOutput"
+const OUTPUT_HTML_ELEMENT_ID = "fingerExercise"
 const OUTPUT_DETAILS_SPAN_STYLE = "font-size: 65%;"
 
 type FingerExercise = Scale | Arpeggio

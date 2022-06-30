@@ -1,4 +1,13 @@
 .btn-primary {
     font-family: Tahoma, serif;
-    font-size: calc(50px + .5vw);
+    font-size: clamp(40px, calc(40px + .5vw), 60px);
+}
+
+.FingerExercise {
+    font-size: clamp(40px, calc(40px + 1vw), 50px);
+}
+
+.row {
+    margin-top: 10px;
+    margin-left: 5px;
 }
