@@ -1,21 +1,26 @@
 import {
     BOTH_STYLES,
-    CHROMATIC_SCALE_MAJOR_SIXTH_APART_OCTAVES,
-    CONTRARY_MOTION_OCTAVES,
     DIATONIC_MODE,
-    DIATONIC_OCTAVES,
-    LEGATO_SCALES_OCTAVES,
-    LEGATO_SCALES_THIRDS_TEMPO,
     NON_DIATONIC_MODE,
     NOTE,
-    OCTAVES_SCALE_TEMPO,
-    SIXTHS_APART_SCALE_TEMPO,
-    STACCATO_SCALES_SIXTHS_OCTAVES,
-    STACCATO_SCALES_SIXTHS_TEMPO,
     STANDARD_STARTING_NOTES,
-    STYLE,
-    WHOLE_TONE_SCALE_OCTAVES
+    STYLE
 } from "./consts";
+
+// Octaves
+export const CHROMATIC_SCALE_MAJOR_SIXTH_APART_OCTAVES = 4
+export const CONTRARY_MOTION_OCTAVES = 2
+export const DIATONIC_OCTAVES = 4
+export const LEGATO_SCALES_OCTAVES = 2
+export const STACCATO_SCALES_SIXTHS_OCTAVES = 2
+export const WHOLE_TONE_SCALE_OCTAVES = 4
+
+// Tempi
+export const OCTAVES_SCALE_MINIM_TEMPO = 88
+export const SIXTHS_APART_SCALE_MINIM_TEMPO = 60
+export const LEGATO_SCALES_THIRDS_MINIM_TEMPO = 52
+export const STACCATO_SCALES_SIXTHS_MINIM_TEMPO = 54
+
 
 export class Scale {
     hands: string
@@ -42,7 +47,7 @@ export class Scale {
 const scalesOctaveApart: Scale[] = STANDARD_STARTING_NOTES.map((startingNote: NOTE) =>
     [DIATONIC_MODE.MAJOR, DIATONIC_MODE.MINOR_HARMONIC, DIATONIC_MODE.MINOR_MELODIC].map((mode: DIATONIC_MODE) =>
         BOTH_STYLES.map((style: STYLE) =>
-            new Scale("Hands together", "Octaves", mode, DIATONIC_OCTAVES, startingNote, style, OCTAVES_SCALE_TEMPO, "Scale in octaves")
+            new Scale("Hands together", "Octaves", mode, DIATONIC_OCTAVES, startingNote, style, OCTAVES_SCALE_MINIM_TEMPO, "Scale in octaves")
         )
     )
 ).flat(2)
@@ -50,7 +55,7 @@ const scalesOctaveApart: Scale[] = STANDARD_STARTING_NOTES.map((startingNote: NO
 const scalesSixthApart: Scale[] = STANDARD_STARTING_NOTES.map((startingNote: NOTE) =>
     [DIATONIC_MODE.MAJOR, DIATONIC_MODE.MINOR_HARMONIC].map((mode: DIATONIC_MODE) =>
         BOTH_STYLES.map((style: STYLE) =>
-            new Scale("Hands together", "Sixth apart", mode, DIATONIC_OCTAVES, startingNote, style, SIXTHS_APART_SCALE_TEMPO, "Scale a sixth apart")
+            new Scale("Hands together", "Sixth apart", mode, DIATONIC_OCTAVES, startingNote, style, SIXTHS_APART_SCALE_MINIM_TEMPO, "Scale a sixth apart")
         )
     )
 ).flat(2)
@@ -58,22 +63,22 @@ const scalesSixthApart: Scale[] = STANDARD_STARTING_NOTES.map((startingNote: NOT
 const scalesContraryMotion: Scale[] = STANDARD_STARTING_NOTES.map((startingNote: NOTE) =>
     [DIATONIC_MODE.MAJOR, DIATONIC_MODE.MINOR_HARMONIC].map((mode: DIATONIC_MODE) =>
         BOTH_STYLES.map((style: STYLE) =>
-            new Scale("Hands together", "Contrary motion", mode, CONTRARY_MOTION_OCTAVES, startingNote, style, OCTAVES_SCALE_TEMPO, "Scale in contrary motion")
+            new Scale("Hands together", "Contrary motion", mode, CONTRARY_MOTION_OCTAVES, startingNote, style, OCTAVES_SCALE_MINIM_TEMPO, "Scale in contrary motion")
         )
     )
 ).flat(2)
 
-const legatoScaleInThirds = [new Scale("Hands separately", "Thirds", DIATONIC_MODE.MAJOR, LEGATO_SCALES_OCTAVES, NOTE.E_FLAT, STYLE.LEGATO, LEGATO_SCALES_THIRDS_TEMPO, "Legato scale in thirds")]
+const legatoScaleInThirds = [new Scale("Hands separately", "Thirds", DIATONIC_MODE.MAJOR, LEGATO_SCALES_OCTAVES, NOTE.E_FLAT, STYLE.LEGATO, LEGATO_SCALES_THIRDS_MINIM_TEMPO, "Legato scale in thirds")]
 
-const staccatoScaleInSixths = [new Scale("Hands separately", "Sixths", DIATONIC_MODE.MAJOR, STACCATO_SCALES_SIXTHS_OCTAVES, NOTE.C, STYLE.STACCATO, STACCATO_SCALES_SIXTHS_TEMPO, "Staccato scale in sixths")]
+const staccatoScaleInSixths = [new Scale("Hands separately", "Sixths", DIATONIC_MODE.MAJOR, STACCATO_SCALES_SIXTHS_OCTAVES, NOTE.C, STYLE.STACCATO, STACCATO_SCALES_SIXTHS_MINIM_TEMPO, "Staccato scale in sixths")]
 
 const chromaticScaleMajorSixthApart: Scale[] = BOTH_STYLES.map((style: STYLE) =>
-    new Scale("Hands together", "Major sixth apart", NON_DIATONIC_MODE.CHROMATIC, CHROMATIC_SCALE_MAJOR_SIXTH_APART_OCTAVES, [NOTE.E_FLAT, NOTE.C], style, SIXTHS_APART_SCALE_TEMPO, "Chromatic scale a major sixth apart")
+    new Scale("Hands together", "Major sixth apart", NON_DIATONIC_MODE.CHROMATIC, CHROMATIC_SCALE_MAJOR_SIXTH_APART_OCTAVES, [NOTE.E_FLAT, NOTE.C], style, SIXTHS_APART_SCALE_MINIM_TEMPO, "Chromatic scale a major sixth apart")
 ).flat()
 
 const wholeToneScales: Scale[] = [NOTE.C, NOTE.E_FLAT].map((note: NOTE) =>
     BOTH_STYLES.map((style: STYLE) =>
-        new Scale("Hands together", "Octaves", NON_DIATONIC_MODE.WHOLE_TONE, WHOLE_TONE_SCALE_OCTAVES, note, style, OCTAVES_SCALE_TEMPO, "Whole tone scale")
+        new Scale("Hands together", "Octaves", NON_DIATONIC_MODE.WHOLE_TONE, WHOLE_TONE_SCALE_OCTAVES, note, style, OCTAVES_SCALE_MINIM_TEMPO, "Whole tone scale")
     )
 ).flat()
 

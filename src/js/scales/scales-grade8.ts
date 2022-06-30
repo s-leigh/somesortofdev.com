@@ -37,7 +37,7 @@ const showRandomScale = () => {
     const extraInfo = [
         `${scale.hands}`,
         `Octaves: ${scale.octaves}`,
-        `Tempo: ${scale.tempo}`
+        `Tempo: ${scale.tempo} (minim)`
     ].map(x => `<span style="${OUTPUT_DETAILS_SPAN_STYLE}">${x}</span>`)
 
     const formattedElement = mainInfo.concat(extraInfo).join('<br/>')

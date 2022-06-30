@@ -10,7 +10,7 @@ export enum ARPEGGIO_MODE {
     DOMINANT_SEVENTH = "dominant seventh",
     DIMINISHED_SEVENTH = "diminished seventh"
 }
-const ARPEGGIO_TEMPO = 66
+const ARPEGGIO_MINIM_TEMPO = 66
 const ARPEGGIO_OCTAVES = 4
 
 export class Arpeggio {
@@ -33,7 +33,7 @@ export class Arpeggio {
         this.octaves = ARPEGGIO_OCTAVES
         this.rootNote = rootNote
         this.style = STYLE.LEGATO
-        this.tempo = ARPEGGIO_TEMPO
+        this.tempo = ARPEGGIO_MINIM_TEMPO
         this.type = type
     }
 }
