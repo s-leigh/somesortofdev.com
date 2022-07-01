@@ -2,7 +2,6 @@
 // @ts-ignore
 import {allScales, Scale} from "./scales";
 import {allArpeggi, Arpeggio, ARPEGGIO_MODE} from "./arpeggi";
-import {NOTE} from "./consts";
 
 const OUTPUT_HTML_ELEMENT_ID = "fingerExercise"
 const OUTPUT_DETAILS_SPAN_STYLE = "font-size: 65%;"
@@ -19,10 +18,15 @@ const formatScaleKey = (scale: Scale): string => {
     return `${scale.startingNote} ${scale.mode}`
 }
 const formatArpeggioMode = (arpeggio: Arpeggio): string => {
+    let modeText: string
     if (arpeggio.mode === ARPEGGIO_MODE.DOMINANT_SEVENTH) {
-        return `In the key of ${arpeggio.key}`
+        modeText = `In the key of ${arpeggio.key}`
+    } else if (arpeggio.mode === ARPEGGIO_MODE.DIMINISHED_SEVENTH) {
+        modeText = `Starting on ${arpeggio.rootNote}`
+    } else {
+        modeText = `${arpeggio.key} ${arpeggio.mode}`
     }
-    return `${(arpeggio.key || arpeggio.rootNote)} ${arpeggio.mode}`
+    return `${modeText}<br/>Inversion: ${arpeggio.inversion}`
 }
 
 const showRandomFingerExercise = <FE extends FingerExercise>(fingerExercises: FE[], formatKeyOrMode: (fe: FE) => string) => {
