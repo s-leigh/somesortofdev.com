@@ -45,7 +45,7 @@ const showRandomFingerExercise = <FE extends FingerExercise>(fingerExercises: FE
             `Tempo: ${fingerExercise.tempo} (minim)`
         ].join('<br/>')
     }</span>`
-    const image = fingerExercise.imagePath ? `<img src=${fingerExercise.imagePath}/>` : ""
+    const image = fingerExercise.imagePath ? `<img src=${fingerExercise.imagePath}>` : ""
     const formattedElement = `<div class="border"><div class="finger-exercise__inner">${mainInfo.concat(extraInfo, image).join('<br/>')}</div></div>`
 
     // @ts-ignore
